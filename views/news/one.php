@@ -1,8 +1,5 @@
-<?php
+<h1><?php echo $item->title; ?></h1>
+<p><?php echo $item->text; ?></p>
+<p><?php echo $item->date; ?></p>
 
-foreach ($items as $item){
-    echo $item['title'];
-    echo "</br>";
-    echo $item['date'];
-    echo "<hr>";
-}
+

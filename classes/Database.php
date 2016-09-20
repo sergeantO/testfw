@@ -1,7 +1,5 @@
 <?php
 
-require_once ROOT . '/configs/DB.php';
-
 /**
  * Description of Database
  *
@@ -13,31 +11,16 @@ class Database {
         mysql_select_db(DB);
     }
     
-    protected function query($sql){
+    public function queryAll($sql, $class='stdClass'){
 	$result = mysql_query($sql);
 	$data = [];
-	while ($row = mysql_fetch_assoc($result)){
+	while ($row = mysql_fetch_object($result, $class)){
 		$data[] = $row;
 	}
 	return $data;
     }
     
-    protected function exec($sql){
-        $res = mysql_query($sql);
-        return $res;
-    }
-    
-    public function getAll($tableName){
-        $sql = "SELECT * FROM $tableName ORDER BY date DESC";
-        return $this->query($sql);        
-    }
-    
-    public function getNewsById($tableName, $news_id){
-        $sql = "SELECT * FROM $tableName WHERE id=$news_id";
-        return $this->query($sql);        
-    }
-    
-    public function insert($sql){
-        return $this->exec($sql);        
+    public function queryOne($sql, $class='stdClass'){	
+	return $this->queryAll($sql, $class)[0];
     }
 }

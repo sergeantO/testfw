@@ -1,6 +1,4 @@
 <?php
-require_once ROOT . '/models/News.php';
-
 class NewsController {
     public function actionGetAll(){
         $items = News::getAll();

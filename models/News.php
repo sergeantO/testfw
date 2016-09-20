@@ -1,29 +1,37 @@
 <?php
 
-require_once ROOT . '/functions/database.php';
+require_once ROOT . '/classes/database.php';
 //require_once ROOT . '/../function/file.php';
 
-//модель
-//получение всех новостей
-function news_getAll(){
-    $db = new Database;
-    return $db->getAll('news');
-}
+class News{
+    public $id;
+    public $title;
+    public $date;
+    public $text;
+    
+    //получение всех новостей
+    public static function getAll(){
+        $db = new Database;
+        $sql = "SELECT * FROM news ORDER BY date DESC";
+        return $db->queryAll($sql, 'News');
+    }
+    
+    //get news from DB by id
+    public static function getOne($news_id){
+        $db = new Database;
+        $sql = "SELECT * FROM news WHERE id=" . $news_id;
+        return $db->queryOne($sql, 'News');
+    }
 
-//add to DB
-function news_insert(){
-    $db = new Database;
-    $sql = "INSERT INTO news 
-            (title, text)
-            VALUES
-            (" . $data['title'] . ", " . $data['text'] . ")";
-    return $db->getAll($sql);
-}
-
-//get news from DB by id
-function news_getId($news_id){
-    $db = new Database;
-    return $db->getNewsById('news',$news_id);
+    //add to DB
+    function news_insert(){
+        $db = new Database;
+        $sql = "INSERT INTO news 
+                (title, text)
+                VALUES
+                (" . $data['title'] . ", " . $data['text'] . ")";
+        return $db->getAll($sql);
+    }
 }
 
 
