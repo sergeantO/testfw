@@ -1,26 +1,27 @@
 <?php
 
-/**
- * Description of Database
- *
- * @author Одмен
- */
 class Database {
+    
+    private $dbh;
+    private $className = "stdClass";
+
     public function __construct() {
-        mysql_connect(HOST, USER, PASS);
-        mysql_select_db(DB);
+        $dsn = 'mysql:dbname=' . DBNAME . ';host=' . HOST;
+        $this->dbh = new PDO($dsn, USER, PASS);
     }
     
-    public function queryAll($sql, $class='stdClass'){
-	$result = mysql_query($sql);
-	$data = [];
-	while ($row = mysql_fetch_object($result, $class)){
-		$data[] = $row;
-	}
-	return $data;
+    public function setClassName($className){
+        $this->className = $className;
+    }
+
+    public function query($sql, $params=[]){
+        $sth = $this->dbh->prepare($sql);
+        $sth->execute($params);
+        return $sth->fetchAll(PDO::FETCH_CLASS, $this->className);
     }
     
-    public function queryOne($sql, $class='stdClass'){	
-	return $this->queryAll($sql, $class)[0];
+    public function execute($sql, $params=[]){
+        $sth = $this->dbh->prepare($sql);
+        $sth->execute($params);
     }
 }

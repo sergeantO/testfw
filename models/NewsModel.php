@@ -1,37 +1,16 @@
 <?php
 
-require_once ROOT . '/classes/database.php';
-//require_once ROOT . '/../function/file.php';
-
-class News{
-    public $id;
-    public $title;
-    public $date;
-    public $text;
+/**
+ * class NewsModel
+ * @property public $id;
+ * @property public $title;
+ * @property public $date;
+ * @property public $text;
+ */
+class NewsModel extends AbstractModel{
     
-    //получение всех новостей
-    public static function getAll(){
-        $db = new Database;
-        $sql = "SELECT * FROM news ORDER BY date DESC";
-        return $db->queryAll($sql, 'News');
-    }
-    
-    //get news from DB by id
-    public static function getOne($news_id){
-        $db = new Database;
-        $sql = "SELECT * FROM news WHERE id=" . $news_id;
-        return $db->queryOne($sql, 'News');
-    }
+    protected static $table = 'news';
 
-    //add to DB
-    function news_insert(){
-        $db = new Database;
-        $sql = "INSERT INTO news 
-                (title, text)
-                VALUES
-                (" . $data['title'] . ", " . $data['text'] . ")";
-        return $db->getAll($sql);
-    }
 }
 
 

@@ -5,5 +5,7 @@ function __autoload($class){
         require ROOT . '/controllers/' . $class . '.php';
     } elseif (file_exists(ROOT . '/models/' . $class . '.php')) {
         require ROOT . '/models/' . $class . '.php';
+    }elseif (file_exists(ROOT . '/classes/' . $class . '.php')) {
+        require ROOT . '/classes/' . $class . '.php';
     }
 }

@@ -1,6 +1,5 @@
 <?php foreach ($items as $item): ?>
-    <h1><?php echo $item->title; ?></h1>
-    <p><?php echo $item->text; ?></p>
+    <a href="?act=GetOne&id=<?php echo $item->id; ?>"><?php echo $item->title; ?></a>
     <p><?php echo $item->date; ?></p>
     <hr>
 <?php endforeach; ?>
