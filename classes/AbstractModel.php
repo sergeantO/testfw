@@ -47,7 +47,13 @@ abstract class AbstractModel {
         $db = new Database;
         $class = get_called_class();
         $db->setClassName($class);
-        return $db->query($sql, [':id' => $id])[0];
+        $res = $db->query($sql, [':id' => $id]);
+        
+        if (empty($res)){
+            throw new ModelException('id not found');
+        }
+        
+        return $res[0];
     }
     
     protected function insert() {

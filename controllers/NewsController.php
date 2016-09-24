@@ -10,7 +10,16 @@ class NewsController {
     
     public function actionGetOne(){
         $id = $_GET['id'];
-        $item = NewsModel::findById($id);
+        
+        try {
+            $item = NewsModel::findById($id);
+        } catch  (Exception $e) {
+            $view = new View();
+            $view->error = $e->getMessage();
+            $view->display('error.php');
+            die();
+        }
+        
         $view = new View();
         $view->assign('item', $item);
         $view->display('news/one.php');
@@ -20,6 +29,6 @@ class NewsController {
         $db = new NewsModel;
         $db->title = 'Новость 4';
         $db->text = 'ОООООчень важная новость';
-        $db->insert();
+        $db->save();
     }
 }
